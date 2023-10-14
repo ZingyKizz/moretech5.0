@@ -1,0 +1,5 @@
+<div class="container">
+  <ya-map [center]="[coords.latitude, coords.longitude]" [zoom]="12" [state]="{ controls: [] }">
+    <ya-placemark [geometry]="[coords.latitude, coords.longitude]"></ya-placemark>
+  </ya-map>
+</div>
