@@ -31,7 +31,7 @@ def get_workload(data, service_title=None):
         .sort_values(by=["dayofweek", "start_time_of_wait_hour"])
         .to_dict("records")
     )
-    res = {"service_title": service_title, "workload": []}
+    res = {"chosen_service": service_title, "workload": []}
     for v in workload_data:
         v = v.copy()
         v["days"] = idx2dayofweek[v["dayofweek"]]

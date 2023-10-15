@@ -97,7 +97,7 @@ def get_branches(lat: Optional[str] = None, lon: Optional[str] = None, service_t
             "isOpen": branch["isOpen"],
             "distance": distance,
             "services": sorted(branch["services"]),
-            "service_title": service_title,
+            "chosen_service": service_title,
             "hasRamp": 1 if branch["hasRamp"] == "Y" else 0,
             "current_datetime": {
                 "time": str(time),
