@@ -1,6 +1,6 @@
-<button class="all-button" (click)="sidebarAll = true; sidebarVisible = true">Выбрать офис</button>
-<p-sidebar [(visible)]="sidebarVisible" *ngIf="selectedOffice">
-  <div *ngIf="!sidebarAll" class="side-container">
+<button class="all-button" (click)="openAll()">Выбрать офис</button>
+<p-sidebar [(visible)]="sidebarVisible">
+  <div *ngIf="!sidebarAll && selectedOffice" class="side-container">
     <div class="block-container">
       <div><img src="../assets/open_office.svg"></div>
       <div>
@@ -16,7 +16,7 @@
     <p-chart style="height: 100px" type="bar" [data]="data" [options]="options"></p-chart>
 
     <img style="width:100%; margin: 5px 0;" src="../assets/Button-2.svg" (click)="getRoad()">
-    <img style="width:100%; margin: 5px 0;" src="../assets/Button-3.svg">
+    <img style="width:100%; margin: 5px 0;" src="../assets/Button-3.svg" (click)="dialogVisible=true">
     <hr>
 
     
@@ -39,17 +39,17 @@
   </div>
 
   <div *ngIf="sidebarAll" class="side-container">
-    <p-dropdown [options]="services" [(ngModel)]="selectedService" optionLabel="name"></p-dropdown>
+    <p-dropdown (onChange)="changeDropdown()" [options]="services" [(ngModel)]="selectedService" optionLabel="name"></p-dropdown>
     <div *ngFor="let branch of offices">
-    <div  class="block-container">
+    <div  class="block-container" (click)="chooseOffice2(branch.id)">
       <div><img src="../assets/open_office.svg"></div>
       <div>
-        <p class="office-name">{{selectedOffice.salePointName}}</p>
-        <p class="office-info">{{selectedOffice.address}}</p>
-          <div *ngFor="let officeServ of selectedOffice.services">
-            <p *ngIf="!officeServ.is_legal_entity" class="office-info">Обслуживание частных лиц</p>
-            <p *ngIf="officeServ.is_legal_entity" class="office-info">Обслуживание юридических лиц</p>
-          </div>
+        <img *ngIf="branch.workload.service_time_prediction < 15.1" src="../assets/Frame-2.svg" style="margin-left: 130px;">
+        <img *ngIf="branch.workload.service_time_prediction > 15.1 && branch.workload.service_time_prediction <= 20.1"src="../assets/Frame-3.svg" style="margin-left: 130px;">
+        <img *ngIf="branch.workload.service_time_prediction > 20.1"src="../assets/Frame-4.svg" style="margin-left: 130px;">
+        <p class="office-name">{{branch.salePointName}}</p>
+        <p class="office-info">{{branch.address}}</p>
+
       </div>
       
     </div>
@@ -60,9 +60,8 @@
 
 </p-sidebar>
 <div class="container">
-  <ya-map [center]="[coords.latitude, coords.longitude]" [zoom]="15" [state]="{ controls: [] }">
+  <ya-map [center]="[coords.latitude, coords.longitude]" [zoom]="13" [state]="{ controls: [] }">
     <ya-placemark [geometry]="[coords.latitude, coords.longitude]"></ya-placemark>
-    <ya-placemark [geometry]="[coords.latitude, 37.8747228]"></ya-placemark>
 
     <ya-placemark *ngFor="let off of openOffices" [geometry]="[off.geometry.lat, off.geometry.lon]"
       [options]="placemarkOptionsOpen" (balloonopen)="chooseOffice(off.id, $event)"></ya-placemark>
@@ -73,3 +72,12 @@
     <ya-control *ngIf="roadVisible" type="RoutePanel" [parameters]="parameters"></ya-control>
   </ya-map>
 </div>
+
+<p-dialog header="Вы забронировали посещение офиса" [(visible)]="dialogVisible" [style]="{width: '50vw'}">
+  <p style="font-weight: 800;">
+      Ваш код бронирования: 4376
+  </p>
+  <p>
+    Введите в терминале электронной очереди данный код и вы будете вызваны в приоритетном порядке.
+</p>
+</p-dialog>

@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChartModule } from 'primeng/chart';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule }   from '@angular/forms';
+import { DialogModule } from 'primeng/dialog';
 
 const mapConfig: YaConfig = {
   apikey: 'API_KEY',
@@ -30,7 +31,8 @@ const mapConfig: YaConfig = {
     BrowserAnimationsModule,
     ChartModule,
     DropdownModule,
-    FormsModule
+    FormsModule,
+    DialogModule
   ],
   providers: [],
   bootstrap: [AppComponent],
