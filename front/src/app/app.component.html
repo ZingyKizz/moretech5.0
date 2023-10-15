@@ -1,5 +1,5 @@
 <button class="all-button" (click)="openAll()">Выбрать офис</button>
-<p-sidebar [(visible)]="sidebarVisible">
+<p-sidebar [(visible)]="sidebarVisible" styleClass="w-30rem">
   <div *ngIf="!sidebarAll && selectedOffice" class="side-container">
     <div class="block-container">
       <div><img src="../assets/open_office.svg"></div>
@@ -39,6 +39,7 @@
   </div>
 
   <div *ngIf="sidebarAll" class="side-container">
+    <input type="text" pInputText [(ngModel)]="value" /> <p-button label="Go" (click)="suggest()"></p-button>
     <p-dropdown (onChange)="changeDropdown()" [options]="services" [(ngModel)]="selectedService" optionLabel="name"></p-dropdown>
     <div *ngFor="let branch of offices">
     <div  class="block-container" (click)="chooseOffice2(branch.id)">

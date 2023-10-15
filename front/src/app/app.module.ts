@@ -12,7 +12,8 @@ import { ChartModule } from 'primeng/chart';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule }   from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
-
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
 const mapConfig: YaConfig = {
   apikey: 'API_KEY',
   lang: 'en_US',
@@ -32,7 +33,9 @@ const mapConfig: YaConfig = {
     ChartModule,
     DropdownModule,
     FormsModule,
-    DialogModule
+    DialogModule,
+    InputTextModule,
+    ButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent],
