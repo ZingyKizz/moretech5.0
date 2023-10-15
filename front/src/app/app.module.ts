@@ -5,6 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { AngularYandexMapsModule, YaConfig } from 'angular8-yandex-maps';
+import { HttpClientModule } from '@angular/common/http';
+import { SidebarModule } from 'primeng/sidebar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ChartModule } from 'primeng/chart';
+import { DropdownModule } from 'primeng/dropdown';
+import { FormsModule }   from '@angular/forms';
 
 const mapConfig: YaConfig = {
   apikey: 'API_KEY',
@@ -18,9 +24,16 @@ const mapConfig: YaConfig = {
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AngularYandexMapsModule
+    AngularYandexMapsModule,
+    HttpClientModule,
+    SidebarModule,
+    BrowserAnimationsModule,
+    ChartModule,
+    DropdownModule,
+    FormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  
 })
 export class AppModule { }
