@@ -5,7 +5,7 @@
   ~~~
   git clone https://github.com/ZingyKizz/moretech5.0.git
   ~~~
-* Перейти в папку проекта
+* Перейти в директорию проекта
   ~~~
   cd moretech5.0
   ~~~
