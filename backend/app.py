@@ -60,10 +60,10 @@ def get_ranking_score(waiting_time_prediction, service_time_prediction, distance
     # Для расстояния считаем количество минут, затраченных на маршрут до офиса
     # Если расстояние меньше 2 км, то идет пешком со скоростью 5 км/ч
     if distance < 2:
-        score -= (distance * 60 / 5) ** 0.8
+        score -= (distance * 60 / 5) ** 1.2
     # Если расстояние больше 2 км, то садится на автобус и движется со средней скоростью 25 км/ч
     else:
-        score -= (7 + distance * 60 / 25) ** 0.8
+        score -= (7 + distance * 60 / 25) ** 1.2
     return score
 
 
