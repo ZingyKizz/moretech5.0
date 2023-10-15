@@ -2,6 +2,7 @@ from math import radians, cos, sin, asin, sqrt
 import datetime as dt
 
 
+
 def haversine(lat1, lon1, lat2, lon2):
       if not all([lat1, lon1, lat2, lon2]):
           return None

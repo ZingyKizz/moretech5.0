@@ -12,6 +12,7 @@ import uvicorn
 import datetime as dt
 from utils import haversine, get_workload
 from typing import Optional
+from intent_classification import classify_intent
 
 
 con = create_engine("postgresql+psycopg2://moretech5:moretech@postgres:5432/moretech")
@@ -31,6 +32,7 @@ def get_branches_data(dayofweek, current_hour, service_title=None):
     if service_title is not None:
         branches_query_formatted += f" and '{service_title}' = ANY(services)"
     return get_data(branches_query_formatted)
+
 
 def get_batches_workload_data(dayofweek, current_hour, service_title=None):
     branches_workload_formatted = branch_workload_query
@@ -111,6 +113,12 @@ def get_branches(lat: Optional[str] = None, lon: Optional[str] = None, service_t
             "score": 0.0
         })
     return sorted(res, key=lambda x: x["distance"] or float("inf"))
+
+
+@app.get("/suggestService/")
+def intent(text):
+    text = text or ""
+    return classify_intent(text)
 
 
 if __name__ == "__main__":
