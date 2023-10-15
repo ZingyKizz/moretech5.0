@@ -21,17 +21,35 @@ branch_services_query = """
 
 branches_query = """
     select
-        id,
-        latitude,
-        longitude,
+        *,
         case 
             when oh.branch_id is not null then 1
             else 0
-        end as "isOpen"
+        end as "isOpen",
+        services
     from
         branches as b
+        inner join services_flattened as sf on
+            b.id = sf.branch_id
         left join open_hours as oh on 
             b.id = oh.branch_id
             and dayofweek = {dayofweek}
-            and {current_hour} between start_hour and end_hour;
+            and {current_hour} between start_hour and end_hour
+    where 1 = 1
+
+"""
+
+branch_workload_query = """
+    select
+        branch_id,
+        dayofweek,
+        is_legal_entity,
+        service_title,
+        start_time_of_wait_hour,
+        waiting_time_prediction,
+        service_time_prediction
+    from
+        workload_prediction
+    where 
+        1 = 1 
 """
