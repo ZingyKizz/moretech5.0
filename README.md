@@ -45,9 +45,9 @@
 
 * Построение марштрута до подходящего отделения в нескольких вариантах - пеший, автомобильный, общественный транспорт, на велосипеде
   
-<img width="271" alt="image" src="https://github.com/ZingyKizz/moretech5.0/assets/63020800/2e70be78-d0ba-4258-a618-25aeef4884ec">
+<img width="271" height="170" alt="image" src="https://github.com/ZingyKizz/moretech5.0/assets/63020800/2e70be78-d0ba-4258-a618-25aeef4884ec">
 
-<img width="271" alt="image" src="https://github.com/ZingyKizz/moretech5.0/assets/63020800/6972a74f-dea1-4069-96df-9cc0ee276991">
+<img width="271" height="170" alt="image" src="https://github.com/ZingyKizz/moretech5.0/assets/63020800/6972a74f-dea1-4069-96df-9cc0ee276991">
 
 * Возможность предварительной записи в отделение - клиент, пришедший вовремя, будет обслужен в приоритетном порядке
   
