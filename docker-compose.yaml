@@ -27,3 +27,14 @@ services:
     restart: on-failure
     depends_on:
       - postgres
+  frontend:
+    container_name: front
+    image: front
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: front/Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
