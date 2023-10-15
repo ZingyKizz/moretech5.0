@@ -19,19 +19,25 @@ export class AppComponent implements OnInit{
   offices: any[] | undefined;
   openOffices: any[] | undefined;
   closeOffices: any[] | undefined;
-  sidebarVisible: boolean = true;
+  sidebarVisible: boolean = false;
   roadVisible: boolean = false;
   sidebarAll: boolean = false;
+  data:any;
+  dialogVisible: boolean = false;
 
-  selectedOffice: any;
+  selectedOffice: any = undefined;
 
   services: Choose[] = [
     { name: 'Все услуги', code: 'NY' },
-    { name: 'New York', code: 'NY' },
-    { name: 'Rome', code: 'RM' },
-    { name: 'London', code: 'LDN' },
-    { name: 'Istanbul', code: 'IST' },
-    { name: 'Paris', code: 'PRS' }
+    { name: 'Переводы', code: 'NY' },
+    { name: 'Банковские карты', code: 'RM' },
+    { name: 'Ценные бумаги/инвестиции', code: 'LDN' },
+    { name: 'Кредиты', code: 'IST' },
+    { name: 'Платежи', code: 'PRS' },
+
+    { name: 'Открытие счета для юридического лица и регистрация бизнеса', code: 'LDN' },
+    { name: 'Сейфы для юридических лиц', code: 'IST' },
+    { name: 'Обслуживание расчетного счета для юридических лиц', code: 'PRS' }
   ];
   selectedService: Choose = { name: 'Все услуги', code: 'NY' };
 
@@ -87,8 +93,41 @@ export class AppComponent implements OnInit{
     this.officeService.getOffice(id).subscribe(office => {
       this.selectedOffice = office;
       this.sidebarVisible = true;
+      this.data = {
+        labels: this.selectedOffice.workload.workload.filter(function(x: any) {return x.dayofweek == 1}).map((x: any) => x.start_time_of_wait_hour),
+        datasets: [
+            {
+                backgroundColor: "#3B83F1",
+                borderColor: "#3B83F1",
+                data: this.selectedOffice.workload.workload.filter(function(x: any) {return x.dayofweek == 1}).map((x: any) => x.service_time_prediction)
+            }
+        ]
+    };
     })
     this.roadVisible = false;
+
+    
+  }
+
+  chooseOffice2(id: number) {
+    this.sidebarAll = false;
+    this.officeService.getOffice(id).subscribe(office => {
+      this.selectedOffice = office;
+      this.sidebarVisible = true;
+      this.data = {
+        labels: this.selectedOffice.workload.workload.filter(function(x: any) {return x.dayofweek == 1}).map((x: any) => x.start_time_of_wait_hour),
+        datasets: [
+            {
+                backgroundColor: "#3B83F1",
+                borderColor: "#3B83F1",
+                data: this.selectedOffice.workload.workload.filter(function(x: any) {return x.dayofweek == 1}).map((x: any) => x.service_time_prediction)
+            }
+        ]
+    };
+    })
+    this.roadVisible = false;
+
+    
   }
 
   getRoad() {
@@ -110,17 +149,37 @@ export class AppComponent implements OnInit{
     this.sidebarVisible = false;
   }
 
+  openAll() {
+    this.sidebarAll = true;
+    this.sidebarVisible = true;
+    console.log("open")
+  }
 
-  data = {
-    labels: [9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
-    datasets: [
-        {
-            backgroundColor: "#3B83F1",
-            borderColor: "#3B83F1",
-            data: [65, 59, 80, 81, 56, 55, 40]
+  changeDropdown() {
+    this.officeService.getOffices(this.selectedService.name).subscribe(o => {
+      this.offices=o; 
+      console.log(this.offices);
+
+      this.openOffices = this.offices.filter(function(elem) {
+        if (elem.isOpen) {
+          return true;
+        } else {
+          return false;
         }
-    ]
-};
+      });
+
+      this.closeOffices = this.offices.filter(function(elem) {
+        if (!elem.isOpen) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+    })
+  }
+
+
+  
 
 options = {
     responsive: true,
@@ -146,11 +205,7 @@ options = {
         },
         y: {
           ticks: {
-              display: false,
               color: 'black',
-              font: {
-                  weight: 500
-              }
           },
           grid: {
             display: false,

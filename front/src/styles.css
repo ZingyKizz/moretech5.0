@@ -13,3 +13,7 @@
 .p-dropdown {
     margin-bottom: 15px;
 }
+
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+    font-size: 8px;
+}
