@@ -24,20 +24,21 @@ export class AppComponent implements OnInit{
   sidebarAll: boolean = false;
   data:any;
   dialogVisible: boolean = false;
+  value: string ="";
 
   selectedOffice: any = undefined;
 
   services: Choose[] = [
     { name: 'Все услуги', code: 'NY' },
     { name: 'Переводы', code: 'NY' },
-    { name: 'Банковские карты', code: 'RM' },
-    { name: 'Ценные бумаги/инвестиции', code: 'LDN' },
-    { name: 'Кредиты', code: 'IST' },
-    { name: 'Платежи', code: 'PRS' },
+    { name: 'Банковские карты', code: 'NY' },
+    { name: 'Ценные бумаги/инвестиции', code: 'NY' },
+    { name: 'Кредиты', code: 'NY' },
+    { name: 'Платежи', code: 'NY' },
 
-    { name: 'Открытие счета для юридического лица и регистрация бизнеса', code: 'LDN' },
-    { name: 'Сейфы для юридических лиц', code: 'IST' },
-    { name: 'Обслуживание расчетного счета для юридических лиц', code: 'PRS' }
+    { name: 'Открытие счета для юридического лица и регистрация бизнеса', code: 'NY' },
+    { name: 'Сейфы для юридических лиц', code: 'NY' },
+    { name: 'Обслуживание расчетного счета для юридических лиц', code: 'NY' }
   ];
   selectedService: Choose = { name: 'Все услуги', code: 'NY' };
 
@@ -175,6 +176,13 @@ export class AppComponent implements OnInit{
           return false;
         }
       });
+    })
+  }
+
+  suggest() {
+    this.officeService.suggest(this.value).subscribe(s => {
+      this.selectedService = { name: s, code: 'NY' };
+      this.changeDropdown();
     })
   }
 

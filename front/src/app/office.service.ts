@@ -20,4 +20,9 @@ export class OfficeService {
   getOffice(id: number): Observable<any[]> {
     return this.http.get<any[]>("http://0.0.0.0:5000/branchInfoById/?id=" + id)
   }
+
+
+  suggest(text: string): Observable<any> {
+    return this.http.get<any>("http://0.0.0.0:5000/suggestService/?text=" + text)
+  }
 }
