@@ -6,6 +6,7 @@ from query_templates import (
     branch_workload_query,
 )
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import create_engine
 import pandas as pd
 import uvicorn
@@ -18,6 +19,13 @@ from intent_classification import classify_intent
 con = create_engine("postgresql+psycopg2://moretech5:moretech@postgres:5432/moretech")
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 def get_data(query, pandas=False):
